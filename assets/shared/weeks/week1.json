@@ -1,0 +1,45 @@
+{
+	"songs": [
+		[
+			"Bopeebo",
+			"dad",
+			[
+				255,
+				235,
+				0
+			]
+		],
+		[
+			"Fresh",
+			"dad",
+			[
+				255,
+				235,
+				0
+			]
+		],
+		[
+			"Dad Battle",
+			"dad",
+			[
+				255,
+				235,
+				0
+			]
+		]
+	],
+	"hiddenUntilUnlocked": false,
+	"hideFreeplay": false,
+	"weekBackground": "stage",
+	"difficulties": "Easy, Normal, Hard",
+	"weekCharacters": [
+		"dad",
+		"bf",
+		"gf"
+	],
+	"storyName": "Grumpy Gramps",
+	"weekName": "Grumpy Gramps",
+	"hideStoryMode": false,
+	"weekBefore": "prelude",
+	"startUnlocked": true
+}
