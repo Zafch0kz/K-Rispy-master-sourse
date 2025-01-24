@@ -27,10 +27,11 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
-		'credits'		
+		//#if MODS_ALLOWED 'mods', #end
+		'credits'
 	];
-
-	var leftOption:String = #if ACHIEVEMENTS_ALLOWED 'achievements' #else null #end;
+	var leftOption:String = null;
+	//var leftOption:String = #if ACHIEVEMENTS_ALLOWED 'achievements' #else null #end;
 	var rightOption:String = 'options';
 
 	var magenta:FlxSprite;
@@ -78,15 +79,16 @@ class MainMenuState extends MusicBeatState
 		for (num => option in optionShit)
 		{
 			var item:FlxSprite = createMenuItem(option, 0, (num * 140) + 90);
-			
+			item.y += (4 - optionShit.length) * 70; // Offsets for when you have anything other than 4 items
+			//item.screenCenter(X);
 		}
 
 		if (leftOption != null)
 			leftItem = createMenuItem(leftOption, 60, 490);
 		if (rightOption != null)
 		{
-			rightItem = createMenuItem(rightOption, FlxG.width - 40, 30);
-			rightItem.x -= rightItem.width;
+			rightItem = createMenuItem(rightOption, 0, 0);
+			//rightItem.x -= rightItem.width;
 		}
 
 		var psychVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "FNF K-Rispy v" + psychEngineVersion, 12);
@@ -111,7 +113,6 @@ class MainMenuState extends MusicBeatState
 		#end
 
 		super.create();
-
 		FlxG.camera.follow(camFollow, null, 0.15);
 	}
 
@@ -122,22 +123,23 @@ class MainMenuState extends MusicBeatState
 		menuItem.animation.addByPrefix('idle', '$name idle', 24, true);
 		menuItem.animation.addByPrefix('selected', '$name selected', 24, true);
 		menuItem.animation.play('idle');
+		menuItem.scale.set(0.8, 0.8);
 		menuItem.updateHitbox();
 		
 		menuItem.antialiasing = ClientPrefs.data.antialiasing;
 		menuItem.scrollFactor.set();
 		menuItems.add(menuItem);
-		return menuItem;
-
 		switch (name)
-        {
-            case 'story_mode':
-                menuItem.setPosition(0, 0);
-            case 'freeplay':
-                menuItem.setPosition(0, 0);
-            case 'credits':
-                menuItem.setPosition(0, 0);
-        }
+		{
+			case 'story_mode':
+				menuItem.setPosition(100, 300);
+			case 'freeplay':
+				menuItem.setPosition(250, 400);
+			case 'credits':
+				menuItem.setPosition(400, 500);
+			case 'options':
+				menuItem.setPosition(1100, 30);
+		}
 		return menuItem;
 	}
 
