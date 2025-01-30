@@ -49,6 +49,7 @@ class TitleState extends MusicBeatState
 	var blackScreen:FlxSprite;
 	var credTextShit:Alphabet;
 	var ngSpr:FlxSprite;
+	var goofBall:FlxSprite;
 	
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
 	var titleTextAlphas:Array<Float> = [1, .64];
@@ -232,10 +233,18 @@ class TitleState extends MusicBeatState
 		ngSpr.screenCenter(X);
 		ngSpr.antialiasing = ClientPrefs.data.antialiasing;
 
+		goofBall = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('sillyCreature'));
+		goofBall.visible = false;
+		goofBall.setGraphicSize(Std.int(goofBall.width * 0.8));
+		goofBall.updateHitbox();
+		goofBall.screenCenter(X);
+		goofBall.antialiasing = ClientPrefs.data.antialiasing;
+
 		add(gfDance);
 		add(logoBl); //FNF Logo
 		add(titleText); //"Press Enter to Begin" text
 		add(credGroup);
+		add(goofBall);
 		add(ngSpr);
 
 		if (initialized)
@@ -573,14 +582,21 @@ class TitleState extends MusicBeatState
 				case 5:
 					deleteCoolText();
 				case 6:
-					createCoolText(['Not associated', 'with'], -40);
+					addMoreText('LOOK AT', 30);
+					addMoreText('CREATURE', 30);
+					goofBall.visible = true;
+				case 7:
+					deleteCoolText();
+					goofBall.visible = false;
 				case 8:
+					createCoolText(['Not associated', 'with'], -40);
+				case 9:
 					addMoreText('newgrounds', -40);
 					ngSpr.visible = true;
-				case 9:
+				case 10:
 					deleteCoolText();
 					ngSpr.visible = false;
-				case 10:
+				case 11:
 					createCoolText([curWacky[0]]);
 				case 12:
 					addMoreText(curWacky[1]);

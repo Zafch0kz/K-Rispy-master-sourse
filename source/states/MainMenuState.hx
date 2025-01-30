@@ -51,8 +51,16 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
+		var aFuckingWall:FlxSprite = new FlxSprite(0).loadGraphic(Paths.image('menuthingy'));
+		aFuckingWall.antialiasing = ClientPrefs.data.antialiasing;
+		aFuckingWall.scrollFactor.set(0, 0);
+		aFuckingWall.setGraphicSize(Std.int(aFuckingWall.width * 1.175));
+		aFuckingWall.updateHitbox();
+		aFuckingWall.screenCenter();
+		add(aFuckingWall);
+
 		var yScroll:Float = 0.25;
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBGBlue'));
 		bg.antialiasing = ClientPrefs.data.antialiasing;
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
@@ -132,11 +140,11 @@ class MainMenuState extends MusicBeatState
 		switch (name)
 		{
 			case 'story_mode':
-				menuItem.setPosition(100, 300);
+				menuItem.setPosition(100, 260);
 			case 'freeplay':
-				menuItem.setPosition(250, 400);
+				menuItem.setPosition(250, 370);
 			case 'credits':
-				menuItem.setPosition(400, 500);
+				menuItem.setPosition(400, 480);
 			case 'options':
 				menuItem.setPosition(1100, 30);
 		}
