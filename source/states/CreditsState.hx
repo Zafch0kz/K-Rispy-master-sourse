@@ -42,7 +42,6 @@ class CreditsState extends MusicBeatState
 			["Zafch0kz",		"zaf",		"Director, Coder and Creator of K-Rispy",					"https://gamebanana.com/members/2097629",	"444444"],
 			["Hube07",		"hube",		"Director",					"https://gamebanana.com/members/1968783",	"444444"],
 			["Reaper7865",		"reaper",		"Charter",					"https://gamebanana.com/members/2396626",	"444444"],
-			["Kawaii Kiss",		"kiss",		"Artist and Animator",					"https://gamebanana.com/members/2762618",	"444444"],
 			["Quacksune",		"sune",		"Artist, Composer and Animator",					"",	"444444"],
 			["Just Gabi",		"gabi",		"Artist",					"",	"444444"],
 			["Hydro546",		"hydro",		"Artist and Coder",					"https://gamebanana.com/members/2062718",	"444444"],
