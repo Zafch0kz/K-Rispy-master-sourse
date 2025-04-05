@@ -16,7 +16,6 @@ import openfl.display.BitmapData;
 import shaders.ColorSwap;
 
 import states.StoryMenuState;
-import states.OutdatedState;
 import states.MainMenuState;
 
 typedef TitleData =
@@ -49,7 +48,6 @@ class TitleState extends MusicBeatState
 	var blackScreen:FlxSprite;
 	var credTextShit:Alphabet;
 	var ngSpr:FlxSprite;
-	var goofBall:FlxSprite;
 	
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
 	var titleTextAlphas:Array<Float> = [1, .64];
@@ -66,10 +64,6 @@ class TitleState extends MusicBeatState
 	var easterEggKeysBuffer:String = '';
 	#end
 
-	var mustUpdate:Bool = false;
-
-	public static var updateVersion:String = '';
-
 	override public function create():Void
 	{
 		Paths.clearStoredMemory();
@@ -83,30 +77,6 @@ class TitleState extends MusicBeatState
 		}
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
-
-		#if CHECK_FOR_UPDATES
-		if(ClientPrefs.data.checkForUpdates && !closedState) {
-			trace('checking for update');
-			var http = new haxe.Http("https://raw.githubusercontent.com/ShadowMario/FNF-PsychEngine/main/gitVersion.txt");
-
-			http.onData = function (data:String)
-			{
-				updateVersion = data.split('\n')[0].trim();
-				var curVersion:String = MainMenuState.psychEngineVersion.trim();
-				trace('version online: ' + updateVersion + ', your version: ' + curVersion);
-				if(updateVersion != curVersion) {
-					trace('versions arent matching!');
-					mustUpdate = true;
-				}
-			}
-
-			http.onError = function (error) {
-				trace('error: $error');
-			}
-
-			http.request();
-		}
-		#end
 
 		if(!initialized)
 		{
@@ -137,9 +107,7 @@ class TitleState extends MusicBeatState
 			MusicBeatState.switchState(new FlashingState());
 		}
 		else
-		{
 			startIntro();
-		}
 		#end
 	}
 
@@ -213,10 +181,6 @@ class TitleState extends MusicBeatState
 		titleText.animation.play('idle');
 		titleText.updateHitbox();
 
-		var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
-		logo.antialiasing = ClientPrefs.data.antialiasing;
-		logo.screenCenter();
-
 		blackScreen = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
 		blackScreen.scale.set(FlxG.width, FlxG.height);
 		blackScreen.updateHitbox();
@@ -233,18 +197,10 @@ class TitleState extends MusicBeatState
 		ngSpr.screenCenter(X);
 		ngSpr.antialiasing = ClientPrefs.data.antialiasing;
 
-		goofBall = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('sillyCreature'));
-		goofBall.visible = false;
-		goofBall.setGraphicSize(Std.int(goofBall.width * 0.8));
-		goofBall.updateHitbox();
-		goofBall.screenCenter(X);
-		goofBall.antialiasing = ClientPrefs.data.antialiasing;
-
 		add(gfDance);
 		add(logoBl); //FNF Logo
 		add(titleText); //"Press Enter to Begin" text
 		add(credGroup);
-		add(goofBall);
 		add(ngSpr);
 
 		if (initialized)
@@ -431,11 +387,7 @@ class TitleState extends MusicBeatState
 
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
-					if (mustUpdate)
-						MusicBeatState.switchState(new OutdatedState());
-					else
-						MusicBeatState.switchState(new MainMenuState());
-
+					MusicBeatState.switchState(new MainMenuState());
 					closedState = true;
 				});
 				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
@@ -575,39 +527,32 @@ class TitleState extends MusicBeatState
 					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
-					createCoolText(['Directed by'], 40);
+					createCoolText(['Psych Engine by'], 40);
 				case 4:
-					addMoreText('a fucking', 40);
-					addMoreText('moron', 40);
+					addMoreText('Shadow Mario', 40);
+					addMoreText('Riveren', 40);
 				case 5:
 					deleteCoolText();
 				case 6:
-					addMoreText('LOOK AT', 30);
-					addMoreText('CREATURE', 30);
-					goofBall.visible = true;
-				case 7:
-					deleteCoolText();
-					goofBall.visible = false;
-				case 8:
 					createCoolText(['Not associated', 'with'], -40);
-				case 9:
+				case 8:
 					addMoreText('newgrounds', -40);
 					ngSpr.visible = true;
-				case 10:
+				case 9:
 					deleteCoolText();
 					ngSpr.visible = false;
-				case 11:
+				case 10:
 					createCoolText([curWacky[0]]);
 				case 12:
 					addMoreText(curWacky[1]);
 				case 13:
 					deleteCoolText();
 				case 14:
-					addMoreText('Friday Night');
+					addMoreText('Friday');
 				case 15:
-					addMoreText('Funkin');
+					addMoreText('Night');
 				case 16:
-					addMoreText('K-Rispy'); // credTextShit.text += '\nFunkin';
+					addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
 
 				case 17:
 					skipIntro();
@@ -672,8 +617,9 @@ class TitleState extends MusicBeatState
 						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						transitioning = false;
-						if(easteregg == 'PESSY')
-							Achievements.unlock('pessy_easter_egg');
+						#if ACHIEVEMENTS_ALLOWED
+						if(easteregg == 'PESSY') Achievements.unlock('pessy_easter_egg');
+						#end
 					};
 				}
 			}

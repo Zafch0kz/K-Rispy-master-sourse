@@ -38,20 +38,6 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
-			["K-Rispy Team"],
-			["Zafch0kz",		"zaf",		"Director, Coder and Creator of K-Rispy",					"https://gamebanana.com/members/2097629",	"444444"],
-			["Hube07",		"hube",		"Director",					"https://gamebanana.com/members/1968783",	"444444"],
-			["Reaper7865",		"reaper",		"Charter",					"https://gamebanana.com/members/2396626",	"444444"],
-			["Quacksune",		"sune",		"Artist, Composer and Animator",					"",	"444444"],
-			["Just Gabi",		"gabi",		"Artist",					"",	"444444"],
-			["Hydro546",		"hydro",		"Artist and Coder",					"https://gamebanana.com/members/2062718",	"444444"],
-			["JunkedLowTep",		"junked",		"Composer",					"https://gamebanana.com/members/2342999",	"444444"],
-			["XPikolaiX",		"piko",		"Composer",					"",	"444444"],
-			["Whyhighhat",		"why",		"Charter and Coder",					"https://gamebanana.com/members/2118566",	"444444"],
-			[""],
-			["Special Thanks"],
-			["Bitrushed",		"bit",		"Made the logo for the mod.",					"https://gamebanana.com/members/1901241",	"444444"],
-			[""],
 			["Psych Engine Team"],
 			["Shadow Mario",		"shadowmario",		"Main Programmer and Head of Psych Engine",					"https://ko-fi.com/shadowmario",	"444444"],
 			["Riveren",				"riveren",			"Main Artist/Animator of Psych Engine",						"https://x.com/riverennn",			"14967B"],
@@ -67,7 +53,6 @@ class CreditsState extends MusicBeatState
 			["SqirraRNG",			"sqirra",			"Crash Handler and Base code for\nChart Editor's Waveform",	"https://x.com/gedehari",			"E1843A"],
 			["EliteMasterEric",		"mastereric",		"Runtime Shaders support and Other PRs",					"https://x.com/EliteMasterEric",	"FFBD40"],
 			["MAJigsaw77",			"majigsaw",			".MP4 Video Loader Library (hxvlc)",						"https://x.com/MAJigsaw77",			"5F5F5F"],
-			["Tahir Toprak Karabekiroglu",	"tahir",	"Mac Support, Note Splash Editor\nand Other PRs",			"https://x.com/TahirKarabekir",		"A04397"],
 			["iFlicky",				"flicky",			"Composer of Psync and Tea Time\nAnd some sound effects",	"https://x.com/flicky_i",			"9E29CF"],
 			["KadeDev",				"kade",				"Fixed some issues on Chart Editor and Other PRs",			"https://x.com/kade0912",			"64A250"],
 			["superpowers04",		"superpowers04",	"LUA JIT Fork",												"https://x.com/superpowers04",		"B957ED"],
@@ -151,7 +136,7 @@ class CreditsState extends MusicBeatState
 	{
 		if (FlxG.sound.music.volume < 0.7)
 		{
-			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+			FlxG.sound.music.volume += 0.5 * elapsed;
 		}
 
 		if(!quitting)
